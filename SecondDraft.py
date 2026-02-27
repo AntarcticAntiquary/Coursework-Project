@@ -2,9 +2,10 @@ import pygame as pg
 import random as r
 
 # Set window properties
-WIDTH = 500
-HEIGHT = 500
-CELLSIZE = 250
+LENGTH = 5
+WIDTH = LENGTH * CELLSIZE
+HEIGHT = LENGTH * CELLSIZE
+CELLSIZE = 25
 
 # Colours
 RED = (200, 0, 0) # debug colour
@@ -38,14 +39,21 @@ pg.init()
 screen = pg.display.set_mode((WIDTH, HEIGHT))
 screen.fill(BLACK)
 
+def setup_cellist():
+    global cells
+    for x in range(LENGTH):
+        cells.insert(x, [])
+        for y in range(LENGTH):
+            cells[x].insert(y, {})
+            cells[x][y]['soiltype'] = 'dirt'
+
 def setup_grid(): # function to set up grid
     global cells
+    setup_cellist()
     for x in range(0, WIDTH, CELLSIZE):
         cellx = x // CELLSIZE # cellx/celly are different to x and y b/c column #1 may be at screen pos 10
-        cells.insert(cellx, [])
         for y in range(0, HEIGHT, CELLSIZE):
             celly = y // CELLSIZE
-            cells[cellx].insert(celly, sample_cell)
             currentcell = cells[cellx][celly]
             print(currentcell)
             rect = pg.Rect(x, y, CELLSIZE, CELLSIZE)

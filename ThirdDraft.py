@@ -119,7 +119,7 @@ def get_adjacent_coords(x, y): # Function to find the adjacent coords to a given
     adjacencies.append(x, y-1)
     return adjacencies
 
-def tick_passes():
+def tick_passes(): # Add rainfall to each cell
     global cells
     global tick_counter
     tick_counter += 1 # So that we can tell the user how long it took to flood the area
@@ -164,3 +164,9 @@ while running: # Loop to check for events
                     pg.quit()
                     print() # Tell the user how long it took to flood
                     print(f'It took {tick_counter} iterations to flood the map ({tick_counter*8}mm of rain)')
+                    if tick_counter < 10:
+                        print('There is a high risk of flooding for this area')
+                    elif tick_counter > 20:
+                        print('There is a low risk of flooding in this area')
+                    else:
+                        print('There is a moderate risk of flooding in this area')
